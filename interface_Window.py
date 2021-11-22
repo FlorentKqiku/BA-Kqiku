@@ -158,7 +158,7 @@ class Interface:
                 # Split the path to get just the name of file because is needed for the Script
                 file = ntpath.basename(filename)
 
-                # /Applications/MATLAB_R2021a.app(167) ist the Path to my (Florent Kqiku) MATLAB-Application
+                # /Applications/MATLAB_R2021a.app(164) ist the Path to my (Florent Kqiku) MATLAB-Application
                 # To use the Script use your own Path to MATLAB or MATLAB-Runtime in your Computer
                 p = subprocess.Popen(["./run_LMKFisheye_Tregenza.sh",
                                       "/Applications/MATLAB_R2021a.app", file, filename])
