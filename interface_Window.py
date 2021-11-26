@@ -100,17 +100,21 @@ class Interface:
 
     # Loop to show the .txt Result of the FOV and to which pictures the Results belong
     def resultFOVLoop(self):
-        if self.FOVDone == 1:
-            selectedPf = self.returnSelectedPictures()
-            for filename in selectedPf:
-                # Get just the name of the File, without the path
-                file = ntpath.basename(filename)
-                result = "Results for FOV: " + file + "\n\nNote: To look up the other results and the Restricted FOV, " \
-                                                      "go to\n the Folder with same name as the Picture"
-                self.init_interface.resultFOV.config(text=result)
-                with open("result.txt", "r") as r:
-                    self.init_interface.resultLabelFOV.config(text=r.read())
-        else:
+        try:
+
+            if self.FOVDone == 1:
+                selectedPf = self.returnSelectedPictures()
+                for filename in selectedPf:
+                    with open("result.txt", "r") as r:
+                        self.init_interface.resultLabelFOV.config(text=r.read())
+                    # Get just the name of the File, without the path
+                    file = ntpath.basename(filename)
+                    result = "Results for FOV: " + file + "\n\nNote: To look up the other results and the Restricted FOV, " \
+                                                          "go to\n the Folder with same name as the Picture"
+                    self.init_interface.resultFOV.config(text=result)
+            else:
+                pass
+        except:
             pass
 
     # Loop to show the Driectogram for the given Picture and to which picture it belongs
@@ -158,7 +162,7 @@ class Interface:
                 # Split the path to get just the name of file because is needed for the Script
                 file = ntpath.basename(filename)
 
-                # /Applications/MATLAB_R2021a.app(164) ist the Path to my (Florent Kqiku) MATLAB-Application
+                # /Applications/MATLAB_R2021a.app(167) ist the Path to my (Florent Kqiku) MATLAB-Application
                 # To use the Script use your own Path to MATLAB or MATLAB-Runtime in your Computer
                 p = subprocess.Popen(["./run_LMKFisheye_Tregenza.sh",
                                       "/Applications/MATLAB_R2021a.app", file, filename])
