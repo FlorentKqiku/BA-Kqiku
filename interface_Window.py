@@ -131,20 +131,26 @@ class Interface:
                     os.chdir(pngPath)
                     file = ntpath.basename(filename)
                     result = "Results for Directogramm: " + file
-                    self.init_interface.resultDir.config(text=result)
                     file = file[:-3]
                     imagePath = file + "1-explosion.png"
 
                     img = Image.open(imagePath)
                     img = img.resize((400, 400), Image.ANTIALIAS)
                     pngImage = ImageTk.PhotoImage(img)
+                    self.init_interface.resultDir.config(text=result)
                     self.init_interface.resultLabelDir.destroy()
                     self.init_interface.resultLabelDir = Label(self.init_interface, image=pngImage,
                                                                relief=GROOVE)
                     self.init_interface.resultLabelDir.image = pngImage
                     self.init_interface.resultLabelDir.place(x="700", y="260")
                 except Exception as err:
-                    print("The Matlab Process ist not finished yet, therefore there is no Image to open")
+                    tk.messagebox.showwarning("Warning", "The Matrix shape given by the chosen Image is not right!\n"
+                                                         "Please upload another picture, taken with the right Camera\n"
+                                                         "Note: The GUI works with the 'LMK mobile advanced'"
+                                                         " based on a CANON EOS 550D"
+                                                         "with a 4.5 mm objective lens (circular fisheye lens) "
+                                                         "with a coverage angle of 140°.")
+                    print("The Matlab Process was not finished, Matrix shapes incompatible")
                     print(Exception, err)
         else:
             pass
